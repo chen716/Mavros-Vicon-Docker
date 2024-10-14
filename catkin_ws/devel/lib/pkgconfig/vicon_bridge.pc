@@ -1,0 +1,1 @@
+/root/catkin_ws/devel/.private/vicon_bridge/lib/pkgconfig/vicon_bridge.pc

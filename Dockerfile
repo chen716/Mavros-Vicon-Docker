@@ -1,30 +1,63 @@
-FROM ros:kinetic
-LABEL maintainer Kyle Usbeck
+# Use the ROS Noetic base image
+FROM ros:noetic-ros-base
 
-# Trick to get apt-get to not prompt for timezone in tzdata
+# Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 
-ARG STARTDELAY=5
-ENV STARTDELAY=$STARTDELAY
+# Install required dependencies
+RUN apt-get update && apt-get install -y \
+    python3-catkin-tools \
+    python3-rosinstall \
+    python3-rosinstall-generator \
+    python3-wstool \
+    build-essential \
+    geographiclib-tools \
+    ros-noetic-geographic-msgs \
+    ros-noetic-angles \
+    ros-noetic-diagnostic-updater \
+    ros-noetic-diagnostic-msgs \
+    ros-noetic-message-filters \
+    ros-noetic-eigen-stl-containers \
+    ros-noetic-libmavconn \
+    ros-noetic-pluginlib \
+    ros-noetic-tf2-ros \
+    ros-noetic-tf2-eigen \
+    ros-noetic-eigen-conversions \
+    ros-noetic-control-toolbox \
+    ros-noetic-urdf \
+    ros-noetic-geometry-msgs \
+    ros-noetic-mavros-msgs \
+    ros-noetic-nav-msgs \
+    ros-noetic-sensor-msgs \
+    ros-noetic-trajectory-msgs \
+    ros-noetic-std-msgs \
+    ros-noetic-std-srvs \
+    ros-noetic-visualization-msgs \
+    ros-noetic-control-toolbox \
+    ros-noetic-tf \
+    libconsole-bridge-dev \
+    libeigen3-dev \
+    libyaml-cpp-dev \
+    libgeographic-dev\
+    python3-pip \
+    libxml2-dev \
+    libxslt-dev \
+    python3-lxml \
+    wget \
+    git \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install MAVROS and some other dependencies for later
-RUN apt-get update && apt-get install -y ros-kinetic-mavros ros-kinetic-mavros-extras ros-kinetic-mavros-msgs vim wget screen
+# Install the Python 'future' module, required by pymavlink
+RUN pip3 install future empy
 
-# Dependency from https://github.com/mavlink/mavros/blob/master/mavros/README.md
-RUN wget https://raw.githubusercontent.com/mavlink/mavros/master/mavros/scripts/install_geographiclib_datasets.sh
-RUN chmod +x install_geographiclib_datasets.sh
-RUN ./install_geographiclib_datasets.sh
+# Install GeographicLib datasets (required for MAVROS)
+RUN wget https://raw.githubusercontent.com/mavlink/mavros/master/mavros/scripts/install_geographiclib_datasets.sh \
+    && chmod +x install_geographiclib_datasets.sh \
+    && ./install_geographiclib_datasets.sh
 
-# Fix the broken apm_config.yaml
-COPY apm_config.yaml /opt/ros/kinetic/share/mavros/launch/apm_config.yaml
+# Source ROS environment in new shells
+RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 
-# MAVLink Input
-EXPOSE 5760
+# Default command to start a shell
+CMD ["bash"]
 
-# Envs
-ENV FCUURL=tcp://localhost:5760
-
-# Finally the command
-COPY entrypoint.sh /
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT /entrypoint.sh ${FCUURL}

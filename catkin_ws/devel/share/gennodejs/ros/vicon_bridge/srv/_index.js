@@ -1,0 +1,1 @@
+/root/catkin_ws/devel/.private/vicon_bridge/share/gennodejs/ros/vicon_bridge/srv/_index.js

@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/root/catkin_ws/src/mavlink/pymavlink/tools/mavgen.py", line 16, in <module>
+    from pymavlink.generator import mavgen
+  File "/root/catkin_ws/src/mavlink/pymavlink/generator/mavgen.py", line 26, in <module>
+    from future import standard_library
+ModuleNotFoundError: No module named 'future'
+Traceback (most recent call last):
+  File "/root/catkin_ws/src/mavlink/pymavlink/tools/mavgen.py", line 16, in <module>
+    from pymavlink.generator import mavgen
+  File "/root/catkin_ws/src/mavlink/pymavlink/generator/mavgen.py", line 26, in <module>
+    from future import standard_library
+ModuleNotFoundError: No module named 'future'
+Traceback (most recent call last):
+  File "/root/catkin_ws/src/mavlink/pymavlink/tools/mavgen.py", line 16, in <module>
+    from pymavlink.generator import mavgen
+  File "/root/catkin_ws/src/mavlink/pymavlink/generator/mavgen.py", line 26, in <module>
+    from future import standard_library
+ModuleNotFoundError: No module named 'future'
+make[2]: *** [CMakeFiles/icarous.xml-v2.0.dir/build.make:63: icarous-v2.0-cxx-stamp] Error 1
+make[1]: *** [CMakeFiles/Makefile2:172: CMakeFiles/icarous.xml-v2.0.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+make[2]: *** [CMakeFiles/standard.xml-v2.0.dir/build.make:63: standard-v2.0-cxx-stamp] Error 1
+make[1]: *** [CMakeFiles/Makefile2:118: CMakeFiles/standard.xml-v2.0.dir/all] Error 2
+make[2]: *** [CMakeFiles/paparazzi.xml-v2.0.dir/build.make:63: paparazzi-v2.0-cxx-stamp] Error 1
+make[1]: *** [CMakeFiles/Makefile2:145: CMakeFiles/paparazzi.xml-v2.0.dir/all] Error 2
+make: *** [Makefile:118: all] Error 2
